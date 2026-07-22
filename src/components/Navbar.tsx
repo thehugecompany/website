@@ -171,7 +171,7 @@ function Navbar() {
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="rounded-xl bg-paper px-5 py-3 text-base font-bold text-brand transition-colors hover:bg-brand hover:text-ink"
+            className="text-base font-medium transition-colors hover:text-brand"
           >
             Contact Us
           </a>
