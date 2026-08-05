@@ -1,0 +1,34 @@
+name = "thc-contact"
+main = "src/index.ts"
+compatibility_date = "2026-08-04"
+
+[observability]
+enabled = true
+
+[vars]
+# Exact origins allowed to POST here — scheme + host only, no path, no trailing
+# slash. Add https://www.thehugecompany.net too if www is ever served directly
+# rather than redirected; a redirect changes the Origin the browser sends.
+ALLOWED_ORIGINS = "https://thehugecompany.net,http://localhost:5173"
+# Bare address, no display name — the display name is added in code. Must be on
+# a domain verified in Resend. It does not need to be a real mailbox; replies go
+# to the visitor via Reply-To, not here.
+CONTACT_FROM = "contact@thehugecompany.net"
+
+# Per-IP cap, so one source cannot burn through Turnstile solves in bulk.
+# `period` only accepts 10 or 60. namespace_id is any number you pick, unique
+# per limiter within this Worker.
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 5, period = 60 }
+
+# Mail goes out via Resend rather than Cloudflare's own Email Sending, which is
+# still Beta and requires the Workers Paid plan. Resend's free tier covers a
+# contact form comfortably, and only sendEmail() in src/index.ts knows about it.
+#
+# Secrets — never put these in this file. Set them with:
+#   npx wrangler secret put TURNSTILE_SECRET_KEY -c worker/wrangler.toml
+#   npx wrangler secret put RESEND_API_KEY       -c worker/wrangler.toml
+#   npx wrangler secret put CONTACT_TO           -c worker/wrangler.toml

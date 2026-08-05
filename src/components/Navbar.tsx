@@ -1,5 +1,6 @@
 import { useAnimate } from "motion/react"
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import blinker from "../assets/images/blink1.svg";
 
 const START = "thc";
@@ -104,9 +105,9 @@ function Navbar() {
 
   return (
     <header className="relative flex items-center justify-between px-8 py-6 md:px-16">
-      <a
+      <Link
         ref={scope}
-        href="/"
+        to="/"
         aria-label="thehugecompany home"
         className="font-logo tracking-tight text-3xl md:text-5xl flex"
       >
@@ -116,7 +117,7 @@ function Navbar() {
         {logo.post}
         <img className="ml-1 blinker h-[1em] w-auto self-center" src={blinker} alt="" />
         {logo.tail}
-      </a>
+      </Link>
       {/* Inline links only on wide desktops; every smaller size gets the hamburger */}
       <nav aria-label="Main" className="hidden items-center gap-6 xl:flex xl:gap-12">
         <a
@@ -131,12 +132,12 @@ function Navbar() {
         >
           Solutions
         </a>
-        <a
-          href="#contact"
+        <Link
+          to="/contact"
           className="rounded-xl bg-paper px-5 py-3 text-base font-bold text-brand transition-colors hover:bg-brand hover:text-ink md:px-7 md:text-lg"
         >
           Contact Us
-        </a>
+        </Link>
       </nav>
       <button
         type="button"
@@ -168,13 +169,13 @@ function Navbar() {
           >
             Solutions
           </a>
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             onClick={() => setMenuOpen(false)}
             className="text-base font-medium transition-colors hover:text-brand"
           >
             Contact Us
-          </a>
+          </Link>
         </nav>
       )}
     </header>
