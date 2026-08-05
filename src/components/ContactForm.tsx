@@ -102,7 +102,13 @@ function ContactForm() {
     return () => {
       cancelled = true
       if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(widgetIdRef.current)
+        // Switching to the success view unmounts the container before this
+        // runs, so Turnstile may already have dropped the widget itself.
+        try {
+          window.turnstile.remove(widgetIdRef.current)
+        } catch {
+          // already gone — nothing to clean up
+        }
         widgetIdRef.current = null
       }
     }

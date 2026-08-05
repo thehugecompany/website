@@ -21,10 +21,13 @@ interface Env {
   RATE_LIMITER?: { limit(opts: { key: string }): Promise<{ success: boolean }> }
 }
 
-/** Nobody types a real message in under three seconds. */
+/**
+ * Nobody types a real message in under three seconds. There is deliberately no
+ * upper bound: leaving a tab open for an hour is ordinary human behaviour, not
+ * a bot signal, and rejecting it silently reported success while sending
+ * nothing. Replay is already covered — Turnstile tokens are single-use.
+ */
 const MIN_DWELL_MS = 3000
-/** Turnstile tokens die after 300s anyway; a stale form is a re-submit. */
-const MAX_DWELL_MS = 30 * 60 * 1000
 const MAX_BODY_BYTES = 16 * 1024
 
 const LIMITS = { name: 100, email: 254, message: 5000 } as const
@@ -81,7 +84,7 @@ export default {
       return json({ ok: true }, 200, allowOrigin)
     }
     const elapsed = Number(body.elapsed)
-    if (!Number.isFinite(elapsed) || elapsed < MIN_DWELL_MS || elapsed > MAX_DWELL_MS) {
+    if (!Number.isFinite(elapsed) || elapsed < MIN_DWELL_MS) {
       return json({ ok: true }, 200, allowOrigin)
     }
 
