@@ -123,7 +123,7 @@ export const SLIDES: SlideData[] = [
       // that would be a link to nowhere, so it points at the contact page.
       <div className="cta-line" style={{ justifyContent: 'flex-start' }}>
         <Link className="cta" to="/contact">
-          <span style={{ color: '#1e1d1b' }}>$</span> it doesn&apos;t have to be this way_
+          It doesn&apos;t have to be this way
         </Link>
       </div>
     ),

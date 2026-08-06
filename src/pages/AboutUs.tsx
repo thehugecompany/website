@@ -25,14 +25,14 @@ const FOUNDERS: Founder[] = [
   {
     name: 'Uthkarsh Pai',
     role: 'Founder',
-    bio: 'Solving huge things for huge money.',
+    bio: 'Solving BIG things for HUGE money.',
     linkedin: 'https://www.linkedin.com/in/uthkarsh-pai/',
     initials: 'UP',
   },
   {
-    name: 'Gopu Nagasai Vallabh',
+    name: 'Gopu Naga Sai Vallabh',
     role: 'Founder',
-    bio: 'Solving huge things for big money.',
+    bio: 'Solving HUGE things for BIG money.',
     linkedin: 'https://www.linkedin.com/in/vallabh-gopu/',
     initials: 'GV',
   },
@@ -60,8 +60,7 @@ function AboutUs() {
           About <span className="text-brand">us.</span>
         </h1>
         <p className="mt-4 text-center text-paper/60">
-          <span className="text-brand">$</span> whoami
-          <span className="animate-pulse text-brand">_</span>
+          The people behind the company.
         </p>
 
         <p className="mx-auto mt-10 max-w-2xl text-center leading-relaxed text-paper/70">

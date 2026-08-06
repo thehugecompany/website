@@ -156,8 +156,7 @@ function ContactForm() {
   if (status === 'sent') {
     return (
       <p className="rounded-xl border border-brand/40 bg-brand/10 px-6 py-8 text-center">
-        <span className="text-brand">$</span> message sent — we&apos;ll get back to you shortly
-        <span className="animate-pulse text-brand">_</span>
+        Message sent — we&apos;ll get back to you shortly.
       </p>
     )
   }
@@ -166,21 +165,21 @@ function ContactForm() {
     <form onSubmit={onSubmit} className="flex flex-col gap-5">
       <label className="flex flex-col gap-2">
         <span className="text-sm text-paper/60">
-          <span className="text-brand">$</span> name
+          Name
         </span>
         <input name="name" type="text" required autoComplete="name" maxLength={100} className={inputClass} />
       </label>
 
       <label className="flex flex-col gap-2">
         <span className="text-sm text-paper/60">
-          <span className="text-brand">$</span> email
+          Email
         </span>
         <input name="email" type="email" required autoComplete="email" maxLength={254} className={inputClass} />
       </label>
 
       <label className="flex flex-col gap-2">
         <span className="text-sm text-paper/60">
-          <span className="text-brand">$</span> message
+          Message
         </span>
         <textarea
           name="message"

@@ -120,8 +120,7 @@ function MarketLookup() {
         <div className="mt-10" aria-live="polite">
           {state.status === 'idle' && (
             <p className="text-paper/40">
-              <span className="text-brand">$</span> waiting for a ZIP code
-              <span className="animate-pulse text-brand">_</span>
+              Enter a ZIP code to see the latest numbers.
             </p>
           )}
 

@@ -95,8 +95,7 @@ function Solutions() {
           What we <span className="text-brand">build.</span>
         </h1>
         <p className="mt-4 text-center text-paper/60">
-          <span className="text-brand">$</span> ls ./solutions
-          <span className="animate-pulse text-brand">_</span>
+          Where we can help.
         </p>
 
         <p className="mx-auto mt-10 max-w-2xl text-center leading-relaxed text-paper/70">

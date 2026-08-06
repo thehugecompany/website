@@ -307,7 +307,7 @@ function Home() {
             Say <span className="text-brand">hello.</span>
           </h2>
           <p className="mt-4 mb-10 text-center text-paper/60">
-            <span className="text-brand">$</span> tell us what you&apos;re building
+            Tell us what you&apos;re building.
           </p>
           <ContactForm />
         </div>

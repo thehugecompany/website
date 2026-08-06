@@ -8,8 +8,7 @@ function Contact() {
           Contact <span className="text-brand">us.</span>
         </h1>
         <p className="mt-4 mb-10 text-center text-paper/60">
-          <span className="text-brand">$</span> tell us what you&apos;re building
-          <span className="animate-pulse text-brand">_</span>
+          Tell us what you&apos;re building.
         </p>
         <ContactForm />
       </div>

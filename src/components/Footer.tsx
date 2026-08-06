@@ -19,8 +19,7 @@ function Footer() {
           </Link>
         </nav>
         <p className="text-sm text-paper/40">
-          <span className="text-brand">$</span> © {new Date().getFullYear()} thehugecompany
-          <span className="text-brand"> · exit 0</span>
+          © {new Date().getFullYear()} thehugecompany
         </p>
       </div>
     </footer>
