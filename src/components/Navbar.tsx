@@ -122,18 +122,18 @@ function Navbar() {
       </Link>
       {/* Inline links only on wide desktops; every smaller size gets the hamburger */}
       <nav aria-label="Main" className="hidden items-center gap-6 xl:flex xl:gap-12">
-        <a
-          href="#about"
+        <Link
+          to="/about-us"
           className="text-base font-medium transition-colors hover:text-brand md:text-lg"
         >
           About
-        </a>
-        <a
-          href="#solutions"
+        </Link>
+        <Link
+          to="/solutions"
           className="text-base font-medium transition-colors hover:text-brand md:text-lg"
         >
           Solutions
-        </a>
+        </Link>
         <Link
           to="/contact"
           className="rounded-xl bg-paper px-5 py-3 text-base font-bold text-brand transition-colors hover:bg-brand hover:text-ink md:px-7 md:text-lg"
@@ -157,20 +157,20 @@ function Navbar() {
           aria-label="Mobile"
           className="absolute left-0 top-full z-10 flex w-full flex-col items-center gap-5 bg-ink pb-8 pt-2 xl:hidden"
         >
-          <a
-            href="#about"
+          <Link
+            to="/about-us"
             onClick={() => setMenuOpen(false)}
             className="text-base font-medium transition-colors hover:text-brand"
           >
             About
-          </a>
-          <a
-            href="#solutions"
+          </Link>
+          <Link
+            to="/solutions"
             onClick={() => setMenuOpen(false)}
             className="text-base font-medium transition-colors hover:text-brand"
           >
             Solutions
-          </a>
+          </Link>
           <Link
             to="/contact"
             onClick={() => setMenuOpen(false)}

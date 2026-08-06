@@ -11,9 +11,9 @@ function Footer() {
           <Link to="/about-us" className="text-paper/60 transition-colors hover:text-brand">
             About
           </Link>
-          <a href="#solutions" className="text-paper/60 transition-colors hover:text-brand">
+          <Link to="/solutions" className="text-paper/60 transition-colors hover:text-brand">
             Solutions
-          </a>
+          </Link>
           <Link to="/contact" className="text-paper/60 transition-colors hover:text-brand">
             Contact
           </Link>
