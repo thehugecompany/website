@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Manual trigger. Creates a run directly rather than via the push webhook,
+  # which is the only way to deploy when Actions webhook delivery is throttled.
+  workflow_dispatch:
 
 permissions:
   contents: read
