@@ -8,9 +8,9 @@ function Footer() {
           <span className="text-brand">./</span>thc
         </Link>
         <nav aria-label="Footer" className="flex items-center gap-6 text-sm">
-          <a href="#about" className="text-paper/60 transition-colors hover:text-brand">
+          <Link to="/about-us" className="text-paper/60 transition-colors hover:text-brand">
             About
-          </a>
+          </Link>
           <a href="#solutions" className="text-paper/60 transition-colors hover:text-brand">
             Solutions
           </a>
