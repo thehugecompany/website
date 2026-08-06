@@ -25,3 +25,6 @@ public/data
 *.njsproj
 *.sln
 *.sw?
+
+# secrets 
+.env
