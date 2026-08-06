@@ -32,10 +32,48 @@
   --color-ink: #1e1d1b;
   --color-paper: #fdfcfa;
   --color-brand: #f2a33c;
+
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
 
 @layer base {
   body {
     @apply bg-ink font-mono text-paper antialiased;
+  }
+
+  /* ScrollRail stands in for the native scrollbar everywhere. */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Set while the hero or the deck owns the viewport; ScrollRail and the navbar
+     watch for this class to know the page isn't really scrollable yet. */
+  html.scroll-locked,
+  html.scroll-locked body {
+    overflow: hidden;
+  }
+
+  /* The navbar holds the top of the screen only while a page has the scroll
+     locked. Once the document is free to scroll, it scrolls away with it. */
+  .nav-shell {
+    position: relative;
+    z-index: 50;
+  }
+  html.scroll-locked .nav-shell {
+    position: sticky;
+    top: 0;
   }
 }

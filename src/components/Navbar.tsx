@@ -104,6 +104,8 @@ function Navbar() {
   }, [breakpoint, animate])
 
   return (
+    // App owns whether the wrapper sticks; this stays relative so the mobile
+    // menu can anchor to it.
     <header className="relative flex items-center justify-between px-8 py-6 md:px-16">
       <Link
         ref={scope}
