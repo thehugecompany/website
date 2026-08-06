@@ -46,6 +46,7 @@ src/
     Footer.tsx
   pages/
     Home.tsx          landing page; embeds ContactForm under #contact
+    AboutUs.tsx       the /about-us route; founder list is a const at the top
     Contact.tsx       the /contact route
   App.tsx             layout + <Routes>
   main.tsx            BrowserRouter, basename from import.meta.env.BASE_URL
