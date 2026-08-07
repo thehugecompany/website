@@ -46,7 +46,12 @@ function Slide({ data }: { data: SlideData }) {
 }
 
 const slideVariants: Variants = {
-  enter: (d: number) => ({ x: REDUCED ? 0 : d > 0 ? '55%' : '-55%', opacity: 0, scale: 0.97 }),
+  // d === 0 is the deck's very first slide: the wrapper lands in place and the
+  // slide's own text/art entrance carries the reveal instead.
+  enter: (d: number) =>
+    d === 0
+      ? { x: 0, opacity: 1, scale: 1 }
+      : { x: REDUCED ? 0 : d > 0 ? '55%' : '-55%', opacity: 0, scale: 0.97 },
   center: {
     x: 0,
     opacity: 1,
@@ -68,6 +73,10 @@ const PREV_KEYS = ['ArrowLeft', 'ArrowUp', 'PageUp']
  *  hand-off doesn't fling the viewer straight past the first slide. */
 const ARM_DELAY = 700
 
+/** The deck layer fades in over ~1s during the hero hand-off; the first slide
+ *  stays unmounted this long so its entrance plays in view, not behind the fade. */
+const REVEAL_DELAY = 450
+
 type Props = {
   /** Stepping back off slide 1. */
   onBack: () => void
@@ -81,6 +90,7 @@ type Props = {
 function ProblemsDeck({ onBack, onForward, locked }: Props) {
   const [[index, dir], setState] = useState<[number, number]>([0, 0])
   const [hovered, setHovered] = useState(false)
+  const [revealed, setRevealed] = useState(REDUCED)
   const deckRef = useRef<HTMLDivElement>(null)
   const touchStart = useRef<{ x: number; y: number } | null>(null)
   const total = SLIDES.length
@@ -126,6 +136,12 @@ function ProblemsDeck({ onBack, onForward, locked }: Props) {
     (delta: number) => (locked ? step(delta) : go(index + delta)),
     [locked, step, go, index],
   )
+
+  useEffect(() => {
+    if (revealed) return
+    const t = setTimeout(() => setRevealed(true), REVEAL_DELAY)
+    return () => clearTimeout(t)
+  }, [revealed])
 
   // Re-arms on mount and every time the deck takes control back, so the
   // gesture that got us here can't carry straight through.
@@ -226,19 +242,24 @@ function ProblemsDeck({ onBack, onForward, locked }: Props) {
       </header>
 
       <main className="stage" aria-live="polite">
-        <AnimatePresence custom={dir} initial={false}>
-          <motion.div
-            key={index}
-            custom={dir}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            style={{ position: 'absolute', inset: 0 }}
-          >
-            <Slide data={SLIDES[index]} />
-          </motion.div>
-        </AnimatePresence>
+        {/* No initial={false} on AnimatePresence: it would suppress the whole
+            subtree's entrance on first render, mounting the slide already at
+            its end state. */}
+        {revealed && (
+          <AnimatePresence custom={dir}>
+            <motion.div
+              key={index}
+              custom={dir}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              style={{ position: 'absolute', inset: 0 }}
+            >
+              <Slide data={SLIDES[index]} />
+            </motion.div>
+          </AnimatePresence>
+        )}
       </main>
 
       <footer className="controls">
