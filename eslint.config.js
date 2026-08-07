@@ -19,4 +19,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Build-time only: Node imports this to prerender, it is never part of the
+    // browser bundle, so the fast-refresh export rule does not apply.
+    files: ['src/entry-server.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])

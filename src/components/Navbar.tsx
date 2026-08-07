@@ -11,6 +11,10 @@ const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 type Breakpoint = "mobile" | "tablet" | "desktop";
 
 const getBreakpoint = (): Breakpoint => {
+  // This runs as a useState initialiser, so it also runs during prerendering,
+  // where there is no window. Desktop is the widest markup and therefore the
+  // most complete for a crawler; the effect below corrects it on mount.
+  if (typeof window === "undefined") return "desktop";
   if (window.matchMedia("(min-width: 1024px)").matches) return "desktop";
   if (window.matchMedia("(min-width: 768px)").matches) return "tablet";
   return "mobile";

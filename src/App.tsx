@@ -8,9 +8,12 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import AboutUs from './pages/AboutUs'
 import Solutions from './pages/Solutions'
+import { useDocumentMeta } from './useDocumentMeta'
 
 function App() {
   const navRef = useRef<HTMLDivElement>(null)
+
+  useDocumentMeta()
 
   /* The navbar is sticky, so it eats the top of the viewport. Publishing its
      height lets pages size their first screen against what's actually left. */
