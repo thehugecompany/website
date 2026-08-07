@@ -18,9 +18,16 @@ const root = resolve(import.meta.dirname, '..')
 const dist = resolve(root, 'dist')
 const ssrDir = resolve(root, 'dist-ssr')
 
-const { render, ROUTES, SITE_URL, SITE_NAME, OG_IMAGE, jsonLd } = await import(
-  pathToFileURL(resolve(ssrDir, 'entry-server.js')).href
-)
+const {
+  render,
+  ROUTES,
+  SITE_URL,
+  SITE_NAME,
+  OG_IMAGE,
+  jsonLd,
+  NOT_FOUND_META,
+  NOT_FOUND_PROBE,
+} = await import(pathToFileURL(resolve(ssrDir, 'entry-server.js')).href)
 
 const esc = (s) =>
   String(s)
@@ -96,21 +103,28 @@ for (const meta of ROUTES) {
 }
 
 /**
- * The SPA fallback still catches genuinely unknown URLs. It must not claim to
- * be the homepage: without this it would inherit the homepage's canonical tag
- * and invite Google to index every typo'd URL as a duplicate of /.
+ * The SPA fallback, served by Pages for every URL with no file behind it.
+ *
+ * Two things matter here. It must not claim to be the homepage — inheriting the
+ * homepage's canonical tag would invite Google to index every typo'd URL as a
+ * duplicate of /. And it carries the catch-all route's markup, so a broken link
+ * shows a real page with a way back rather than a blank screen while the bundle
+ * loads.
  */
 await write(
   resolve(dist, '404.html'),
-  template.replace(
-    SEO_BLOCK,
-    [
-      '<title>Page not found — The Huge Company</title>',
-      '<meta name="robots" content="noindex" />',
-    ].join('\n    '),
-  ),
+  template
+    .replace(
+      SEO_BLOCK,
+      [
+        `<title>${esc(NOT_FOUND_META.title)}</title>`,
+        `<meta name="description" content="${esc(NOT_FOUND_META.description)}" />`,
+        '<meta name="robots" content="noindex" />',
+      ].join('\n    '),
+    )
+    .replace(ROOT_DIV, `<div id="root">${render(NOT_FOUND_PROBE)}</div>`),
 )
-console.log('wrote 404.html (noindex)')
+console.log('prerendered 404.html (noindex)')
 
 /**
  * No <lastmod>: it would have to be the build date, which claims every page

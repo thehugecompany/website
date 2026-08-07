@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
-import { SITE_URL, routeMetaFor } from './seo'
+import { NOT_FOUND_META, SITE_URL, routeMetaFor } from './seo'
 
 const setMeta = (selector: string, attr: string, value: string) => {
   const el = document.head.querySelector(selector)
@@ -25,7 +25,14 @@ export function useDocumentMeta() {
 
     document.title = meta.title
     setMeta('meta[name="description"]', 'content', meta.description)
-    setMeta('link[rel="canonical"]', 'href', canonical)
+
+    // A page that does not exist has no canonical URL to declare, and pointing
+    // it at the previous route's would invite that route to be indexed twice.
+    const canonicalEl = document.head.querySelector('link[rel="canonical"]')
+    if (canonicalEl) {
+      if (meta === NOT_FOUND_META) canonicalEl.removeAttribute('href')
+      else canonicalEl.setAttribute('href', canonical)
+    }
     setMeta('meta[property="og:title"]', 'content', meta.title)
     setMeta('meta[property="og:description"]', 'content', meta.description)
     setMeta('meta[property="og:url"]', 'content', canonical)

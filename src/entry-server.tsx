@@ -19,4 +19,12 @@ export function render(path: string): string {
 
 // Re-exported so the prerender script reads route metadata from the compiled
 // bundle rather than parsing TypeScript itself.
-export { ROUTES, SITE_URL, SITE_NAME, OG_IMAGE, jsonLd } from './seo'
+export {
+  ROUTES,
+  SITE_URL,
+  SITE_NAME,
+  OG_IMAGE,
+  jsonLd,
+  NOT_FOUND_META,
+  NOT_FOUND_PROBE,
+} from './seo'

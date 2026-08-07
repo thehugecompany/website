@@ -57,11 +57,29 @@ export const ROUTES: RouteMeta[] = [
   },
 ]
 
+/**
+ * Metadata for the catch-all route. Deliberately not in ROUTES: it must never
+ * be prerendered as its own URL or listed in the sitemap. It is rendered into
+ * 404.html instead, where the head is replaced with a noindex block.
+ */
+export const NOT_FOUND_META: RouteMeta = {
+  path: '*',
+  title: `Page not found — ${SITE_NAME}`,
+  description: 'That page has either moved or never existed.',
+  priority: 0,
+}
+
+/** Any path that cannot match a real route, used to drive the catch-all when
+ *  prerendering 404.html. */
+export const NOT_FOUND_PROBE = '/__not-found__'
+
 export const routeMetaFor = (pathname: string): RouteMeta => {
-  // Trailing slashes are equivalent for our purposes: /solutions/ is the same
-  // page as /solutions, and both can appear in the address bar.
-  const normalised = pathname !== '/' ? pathname.replace(/\/+$/, '') : '/'
-  return ROUTES.find((r) => r.path === normalised) ?? ROUTES[0]
+  // Matched the way react-router matches, or the two disagree: it resolves
+  // /Solutions and /solutions/ to the same route, so looking either up here
+  // must not fall through to "page not found" while the real page renders.
+  const normalised =
+    pathname !== '/' ? pathname.replace(/\/+$/, '').toLowerCase() : '/'
+  return ROUTES.find((r) => r.path === normalised) ?? NOT_FOUND_META
 }
 
 /** Structured data for the homepage. Organization drives knowledge-panel

@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import AboutUs from './pages/AboutUs'
 import Solutions from './pages/Solutions'
+import NotFound from './pages/NotFound'
 import { useDocumentMeta } from './useDocumentMeta'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="solutions" element={<Solutions />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       {/* <Footer /> */}
