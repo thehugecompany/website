@@ -52,8 +52,8 @@ export const SLIDES: SlideData[] = [
       <div className="stat-row">
         <span className="stat ghost">12.4</span>
         <span className="stat-arrow">→</span>
-        <span className="stat">20.4</span>
-        <span className="stat-label">avg. tools per brokerage, 2020 → 2023</span>
+        <span className="stat">20+</span>
+        <span className="stat-label">avg. tools per brokerage, 2020 → 2026</span>
       </div>
     ),
   },
